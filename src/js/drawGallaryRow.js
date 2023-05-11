@@ -9,21 +9,7 @@ const btnLoadMoreEl = document.querySelector('.load-more'),
   gallaryEl = document.querySelector('.gallery');
 let lightbox = new SimpleLightbox('.gallery a');
 
-function showMasseage(gallaryMass, e, submitEl, loadMoreEl, totalImg) {
-  const massLengthCheck = !gallaryMass.length;
-  if (massLengthCheck && e.target == submitEl) {
-    btnLoadMoreEl.style.opacity = 0;
-    return Notiflix.Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
-  } else if (massLengthCheck && e.target == loadMoreEl) {
-    return Notiflix.Notify.info(
-      "We're sorry, but you've reached the end of search results."
-    );
-  } else if (e.target == submitEl) {
-    return Notiflix.Notify.success(`Hooray! We found ${totalImg} images`);
-  }
-}
+
 function slowScroll() {
   const { height: cardHeight } = document
     .querySelector('.gallery')
@@ -34,10 +20,10 @@ function slowScroll() {
     behavior: 'smooth',
   });
 }
-function drawGallary(gallary, event) {
+function drawGallary(gallary) {
   btnLoadMoreEl.style.opacity = 1;
   const gallaryMass = gallary.hits;
-  showMasseage(gallaryMass, event, submitPhoto, btnLoadMoreEl, gallary.total);
+  
   const gallaryList = gallaryMass.map(e => getGallaryRow(e));
   gallaryEl.insertAdjacentHTML('beforeend', gallaryList.join(''));
   lightbox.refresh();
